@@ -21,4 +21,6 @@ void displayBoard(const Sudoku *game);
 void initializeBoard(Sudoku *game);
 void fillRandomNumbers(Sudoku *game);
 
+bool insertNumber(Sudoku *game, int row, int col, int num);
+
 #endif

@@ -66,6 +66,30 @@ void fillRandomNumbers(Sudoku *game)
 	}
 }
 
+
+bool insertNumber(Sudoku *game, int row, int col, int num)
+{
+	if (row < 0 || row >= SIZE || col < 0 || col >= SIZE)
+	{
+		printf("Erro: Posição inválida!\n");
+		return false;
+	}
+	if (num < 1 || num > 9)
+	{
+		printf("Erro: Número inválido! Insira um número entre 1 e 9.\n");
+		return false;
+	}
+	if (game->board[row][col] != 0)
+	{
+		printf("Erro: A posição já está preenchida.\n");
+		return false;
+	}
+	game->board[row][col] = num;
+
+	return true;
+}
+
+
 int main () {
 
 	Sudoku game;
@@ -73,7 +97,25 @@ int main () {
 
 	fillRandomNumbers(&game);
 
+	int row, col, num;
+
 	displayBoard(&game);
+	printf("Insira a linha, coluna e numero (1-9) separados por espaco: ");
+	if (scanf("%d %d %d", &row, &col, &num) != 3)
+	{
+		printf("Erro: Entrada invahlida! Tente novamente.\n");
+		while (getchar() != '\n')
+			continue;
+	}
+
+	if (insertNumber(&game, row - 1, col - 1, num))
+	{
+		printf("Numero inserido com sucesso!\n");
+	}
+	else
+	{
+		printf("Falha ao inserir o numero. Tente novamente.\n");
+	}
 
 	return 0;
 }
