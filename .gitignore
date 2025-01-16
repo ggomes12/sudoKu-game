@@ -1,0 +1,5 @@
+# Ignore VSCode folder
+.vscode/
+
+# Ignore output folder
+output/
