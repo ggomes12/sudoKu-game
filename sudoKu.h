@@ -19,5 +19,6 @@ typedef struct
 // Declaração de funções
 void displayBoard(const Sudoku *game);
 void initializeBoard(Sudoku *game);
+void fillRandomNumbers(Sudoku *game);
 
 #endif
