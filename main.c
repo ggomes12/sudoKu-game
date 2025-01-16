@@ -1,6 +1,5 @@
 #include "sudoKu.h"
 
-// Inicializa o tabuleiro e auxiliares
 void initializeBoard(Sudoku *game)
 {
 	for (int i = 0; i < SIZE; i++)
@@ -21,7 +20,7 @@ void initializeBoard(Sudoku *game)
 	}
 }
 
-// Exibe o tabuleiro
+
 void displayBoard(const Sudoku *game)
 {
 	for (int i = 0; i < SIZE; i++)
