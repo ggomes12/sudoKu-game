@@ -22,5 +22,8 @@ void initializeBoard(Sudoku *game);
 void fillRandomNumbers(Sudoku *game);
 
 bool insertNumber(Sudoku *game, int row, int col, int num);
+bool isValidMove(const Sudoku *game, int row, int col, int num);
+int getBoxIndex(int row, int col);
+void updateTracking(Sudoku *game, int row, int col, int num, bool add);
 
 #endif

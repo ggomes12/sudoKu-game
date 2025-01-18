@@ -56,9 +56,10 @@ void fillRandomNumbers(Sudoku *game)
 				int col = boxCol + rand() % 3;
 				int num = 1 + rand() % 9;
 
-				if (game->board[row][col] == 0)
+				if (game->board[row][col] == 0 && isValidMove(game, row, col, num))
 				{
 					game->board[row][col] = num;
+					updateTracking(game, row, col, num, true);
 					numbersPlaced++;
 				}
 			}
@@ -85,10 +86,31 @@ bool insertNumber(Sudoku *game, int row, int col, int num)
 		return false;
 	}
 	game->board[row][col] = num;
+	updateTracking(game, row, col, num, true);
 
 	return true;
 }
 
+
+bool isValidMove(const Sudoku *game, int row, int col, int num)
+{
+	int boxIndex = getBoxIndex(row, col);
+	return !game->rows[row][num - 1] && !game->cols[col][num - 1] && !game->boxes[boxIndex][num - 1];
+}
+
+
+int getBoxIndex(int row, int col)
+{
+	return (row / 3) * 3 + (col / 3);
+}
+
+void updateTracking(Sudoku *game, int row, int col, int num, bool add)
+{
+	int boxIndex = getBoxIndex(row, col);
+	game->rows[row][num - 1] = add;
+	game->cols[col][num - 1] = add;
+	game->boxes[boxIndex][num - 1] = add;
+}
 
 int main () {
 
@@ -105,7 +127,7 @@ int main () {
 	{
 		printf("Erro: Entrada invahlida! Tente novamente.\n");
 		while (getchar() != '\n')
-			continue;
+		continue;
 	}
 
 	if (insertNumber(&game, row - 1, col - 1, num))
