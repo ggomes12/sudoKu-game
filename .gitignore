@@ -1,5 +1,8 @@
-# Ignore VSCode folder
+# ignorar VSCode folder
 .vscode/
 
-# Ignore output folder
+# ignorar output folder
 output/
+
+# ignorar o executável de testes locais
+main.exe
