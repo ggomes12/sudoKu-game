@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
+#include <locale.h>
+#include <string.h>
 
 #define SIZE 9
 
