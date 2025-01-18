@@ -85,6 +85,11 @@ bool insertNumber(Sudoku *game, int row, int col, int num)
 		printf("Erro: A posição já está preenchida.\n");
 		return false;
 	}
+	if (!isValidMove(game, row, col, num))
+	{
+		printf("Erro: Movimento inválido. Viola as regras do SudoKu.\n");
+		return false;
+	}
 	game->board[row][col] = num;
 	updateTracking(game, row, col, num, true);
 
@@ -112,6 +117,21 @@ void updateTracking(Sudoku *game, int row, int col, int num, bool add)
 	game->boxes[boxIndex][num - 1] = add;
 }
 
+bool isSolved(const Sudoku *game)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		for (int j = 0; j < SIZE; j++)
+		{
+			if (game->board[i][j] == 0)
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 int main () {
 
 	Sudoku game;
@@ -121,23 +141,27 @@ int main () {
 
 	int row, col, num;
 
-	displayBoard(&game);
-	printf("Insira a linha, coluna e numero (1-9) separados por espaco: ");
-	if (scanf("%d %d %d", &row, &col, &num) != 3)
+	while (!isSolved(&game))
 	{
-		printf("Erro: Entrada invahlida! Tente novamente.\n");
-		while (getchar() != '\n')
-		continue;
+		displayBoard(&game);
+		printf("Insira a linha, coluna e numero (1-9) separados por espaco: ");
+		if (scanf("%d %d %d", &row, &col, &num) != 3)
+		{
+			printf("Erro: Entrada invahlida! Tente novamente.\n");
+			while (getchar() != '\n')
+				continue;
+		}
+
+		if (insertNumber(&game, row - 1, col - 1, num))
+		{
+			printf("Numero inserido com sucesso!\n");
+		}
+		else
+		{
+			printf("Falha ao inserir o numero. Tente novamente.\n");
+		}
 	}
 
-	if (insertNumber(&game, row - 1, col - 1, num))
-	{
-		printf("Numero inserido com sucesso!\n");
-	}
-	else
-	{
-		printf("Falha ao inserir o numero. Tente novamente.\n");
-	}
-
+	printf("Isso aí !!! Você resolveu o Sudoku!\n");
 	return 0;
-}
+	}
